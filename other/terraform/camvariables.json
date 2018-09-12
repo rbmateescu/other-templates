@@ -1,0 +1,52 @@
+{
+  "template_input_params": [
+    {
+      "name": "svn_user",
+      "type": "string",
+      "description": "ServiceNow Administrative user.",
+      "hidden": false,
+      "label": "svn_user",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "default": "admin",      
+      "group_name": "svn"
+    },
+    {
+      "name": "svn_pass",
+      "type": "password",
+      "description": "ServiceNow Administrative Password.",
+      "hidden": false,
+      "label": "svn_pass",
+      "secured": true,
+      "required": true,
+      "immutable": false,
+      "default": "Lea2leo&",      
+      "group_name": "svn"
+    },
+    {
+      "name": "svn_base_url",
+      "type": "string",
+      "description": "ServiceNow base_url.",
+      "hidden": false,
+      "label": "svn_base_url",
+      "secured": false,
+      "required": true,
+      "immutable": false,
+      "default": "https://dev57677.service-now.com",       
+      "group_name": "svn"
+    },
+    {
+      "name": "svn_msg",
+      "type": "string",
+      "description": "Text used when creating (short description), updating (work notes) or closing (close notes)an incident.",
+      "hidden": false,
+      "label": "svn_msg",
+      "secured": false,
+      "required": false,
+      "immutable": false,
+      "default": "Incident managed by CAM",       
+      "group_name": "svn"
+    } 
+  ]
+}

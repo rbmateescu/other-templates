@@ -1,0 +1,8 @@
+# ServiceNow Incident Configuration Template
+Copyright IBM Corp. 2018, 2018
+
+
+
+## Description
+
+Create, read, update, close incidents in ServiceNow in order to record & trace automatic provisioning services instantiated on Cloud Automation Manager. This implements a Cloud Provider of type Other and can be used from the CAM composer palette
