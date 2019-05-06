@@ -9,7 +9,7 @@
             "description": "Sapikey",
             "label": "apikey",
             "required": "false",
-            "secured": "false",
+            "secured": "true",
             "immutable": "false",
             "hidden": "false",
             "options": null
