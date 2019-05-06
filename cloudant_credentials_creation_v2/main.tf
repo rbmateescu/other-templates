@@ -57,6 +57,7 @@ resource "null_resource" "cloudant" {
  
     provisioner "remote-exec" {
     inline = [
+        "chmod +x /tmp/${random_string.random-dir.result}/create_credentials.sh",
         "/tmp/${random_string.random-dir.result}/create_credentials.sh",
       ]
     }
@@ -64,8 +65,9 @@ resource "null_resource" "cloudant" {
     provisioner "remote-exec" {
     when    = "destroy"
     inline = [
-        "/tmp/${random_string.random-dir.result}/delete_credentials.sh && rm -fr /tmp/${random_string.random-dir.result}",
-      ]
+      "chmod +x /tmp/${random_string.random-dir.result}/delete_credentials.sh",
+      "/tmp/${random_string.random-dir.result}/delete_credentials.sh && rm -fr /tmp/${random_string.random-dir.result}",
+    ]
   }
 }
 
