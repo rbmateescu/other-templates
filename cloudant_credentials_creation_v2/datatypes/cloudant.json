@@ -8,10 +8,10 @@
             "type": "string",
             "description": "Sapikey",
             "label": "apikey",
-            "required": "false",
-            "secured": "true",
-            "immutable": "false",
-            "hidden": "false",
+            "required": false,
+            "secured": true,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -19,10 +19,10 @@
             "type": "string",
             "description": "host",
             "label": "host",
-            "required": "true",
-            "secured": "false",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -30,10 +30,10 @@
             "type": "string",
             "description": "iam_apikey_description",
             "label": "iam_apikey_description",
-            "required": "false",
-            "secured": "true",
-            "immutable": "false",
-            "hidden": "false",
+            "required": false,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -41,10 +41,10 @@
             "type": "string",
             "description": "iam_apikey_name",
             "label": "iam_apikey_name",
-            "required": "true",
-            "secured": "false",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -52,10 +52,10 @@
             "type": "string",
             "description": "iam_serviceid_crn",
             "label": "iam_serviceid_crn",
-            "required": "true",
-            "secured": "false",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -63,10 +63,10 @@
             "type": "string",
             "description": "password",
             "label": "password",
-            "required": "true",
-            "secured": "true",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": true,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -74,10 +74,10 @@
             "type": "string",
             "description": "port",
             "label": "port",
-            "required": "true",
-            "secured": "false",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -85,10 +85,10 @@
             "type": "string",
             "description": "url",
             "label": "url",
-            "required": "true",
-            "secured": "false",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         },
         {
@@ -96,10 +96,10 @@
             "type": "string",
             "description": "username",
             "label": "username",
-            "required": "true",
-            "secured": "false",
-            "immutable": "false",
-            "hidden": "false",
+            "required": true,
+            "secured": false,
+            "immutable": false,
+            "hidden": false,
             "options": null
         }
     ]
