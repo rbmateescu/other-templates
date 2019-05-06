@@ -92,9 +92,19 @@
   ],
   "template_output_params": [
     {
-      "name": "remote_script_stdout",
-      "label": "Remote Script Stdout",
-      "description": "Remote Script Stdout",
+      "name": "apikey",
+      "label": "Apikey",
+      "description": "Apikey",
+      "group_name": "",
+      "secured": true,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "host",
+      "label": "host",
+      "description": "host",
       "group_name": "",
       "secured": false,
       "hidden": false,
@@ -102,14 +112,75 @@
       "type": "string"
     },
     {
-      "name": "apikey",
-      "label": "Apikey",
-      "description": "Apikey",
+      "name": "iam_apikey_description",
+      "label": "iam_apikey_description",
+      "description": "iam_apikey_description",
       "group_name": "",
       "secured": false,
       "hidden": false,
       "shortname": "",
       "type": "string"
-    }
+    },
+    {
+      "name": "iam_apikey_name",
+      "label": "iam_apikey_name",
+      "description": "iam_apikey_name",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "iam_serviceid_crn",
+      "label": "iam_serviceid_crn",
+      "description": "iam_serviceid_crn",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "password",
+      "label": "password",
+      "description": "password",
+      "group_name": "",
+      "secured": true,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "port",
+      "label": "port",
+      "description": "port",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "url",
+      "label": "url",
+      "description": "url",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+    {
+      "name": "username",
+      "label": "username",
+      "description": "username",
+      "group_name": "",
+      "secured": false,
+      "hidden": false,
+      "shortname": "",
+      "type": "string"
+    },
+
   ]
 }

@@ -81,13 +81,75 @@ resource "camc_scriptpackage" "apikey" {
   on_create = true
 }
 
-#data "external" "com_output" {
-#  depends_on = ["null_resource.cloudant"]
-#  program = ["/bin/bash", "${path.module}/scripts/get_output.sh"]
-#  query = {
-#    host = "${var.vm_address}"
-##    user = "${var.ssh_user}"
-#   password = "${var.ssh_user_password}"
-#    output_location  = "/tmp/${random_string.random-dir.result}/com_output"
-#  }
-#}
+resource "camc_scriptpackage" "host" {
+  program = ["jq", "--raw-output '.host' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "iam_apikey_description" {
+  program = ["jq", "--raw-output '.iam_apikey_description' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "iam_apikey_name" {
+  program = ["jq", "--raw-output '.iam_apikey_name' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "iam_serviceid_crn" {
+  program = ["jq", "--raw-output '.iam_serviceid_crn' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "password" {
+  program = ["jq", "--raw-output '.password' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "port" {
+  program = ["jq", "--raw-output '.port' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "url" {
+  program = ["jq", "--raw-output '.url' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
+resource "camc_scriptpackage" "username" {
+  program = ["jq", "--raw-output '.username' /tmp/${random_string.random-dir.result}/com_output"]
+  depends_on = ["null_resource.cloudant"]
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
+}
+
