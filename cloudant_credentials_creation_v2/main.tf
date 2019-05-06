@@ -29,6 +29,7 @@ com_response=$(ibmcloud service key-show ${var.service_name} ${var.service_crede
 echo $com_response >> /tmp/com_response
 com_output=$(echo $com_response | awk 'match($0,"{"){print substr($0,RSTART)}')
 echo $com_output >> /tmp/com_output
+jq --raw-output '.' /tmp/com_response
 EOF
     destination = "/tmp/create_credentials.sh"
   }
