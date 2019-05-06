@@ -66,15 +66,28 @@ resource "null_resource" "cloudant" {
     when    = "destroy"
     inline = [
       "chmod +x /tmp/${random_string.random-dir.result}/delete_credentials.sh",
-      "/tmp/${random_string.random-dir.result}/delete_credentials.sh && rm -fr /tmp/${random_string.random-dir.result}",
+      "/tmp/${random_string.random-dir.result}/delete_credentials.sh",
+      "rm -fr /tmp/${random_string.random-dir.result}",
     ]
   }
 }
 
-data "external" "com_output" {
+resource "camc_scriptpackage" "json" {
+  program = ["/bin/bash", "jq --raw-output '.' /tmp/${random_string.random-dir.result}/com_output"]
   depends_on = ["null_resource.cloudant"]
-  program = ["/bin/bash", "${path.module}/scripts/get_output.sh"]
-  query = {
-    output_location  = "/tmp/${random_string.random-dir.result}/com_output"
-  }
+  remote_host = "${var.vm_address}"
+  remote_user = "${var.ssh_user}"
+  remote_password = "${var.ssh_user_password}"
+  on_create = true
 }
+
+#data "external" "com_output" {
+#  depends_on = ["null_resource.cloudant"]
+#  program = ["/bin/bash", "${path.module}/scripts/get_output.sh"]
+#  query = {
+#    host = "${var.vm_address}"
+##    user = "${var.ssh_user}"
+#   password = "${var.ssh_user_password}"
+#    output_location  = "/tmp/${random_string.random-dir.result}/com_output"
+#  }
+#}
