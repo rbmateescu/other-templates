@@ -17,7 +17,7 @@ output "host" {
 
 output "iam_apikey_description" {
   #value = "${data.external.com_output.result["apikey"]}"
-  value = "${camc_scriptpackage.iam_apikey_description.result.stdout}"
+  value = "${camc_scriptpackage.iam_apikey_description.result["stdout"]}"
 }
 
 output "iam_apikey_name" {
