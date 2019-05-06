@@ -11,6 +11,6 @@ output "remote_script_stdout" {
 
 output "apikey" {
   #value = "${data.external.com_output.result["apikey"]}"
-  value = "${data.camc_scriptpackage.json.result["apikey"]}"
+  value = "${camc_scriptpackage.json.result["apikey"]}"
 }
 
