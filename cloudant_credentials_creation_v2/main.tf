@@ -73,7 +73,7 @@ resource "null_resource" "cloudant" {
 }
 
 resource "camc_scriptpackage" "json" {
-  program = ["/bin/bash", "jq --raw-output '.' /tmp/${random_string.random-dir.result}/com_output"]
+  program = ["jq", "--raw-output '.' /tmp/${random_string.random-dir.result}/com_output"]
   depends_on = ["null_resource.cloudant"]
   remote_host = "${var.vm_address}"
   remote_user = "${var.ssh_user}"
