@@ -1,5 +1,55 @@
 {
   "input_datatypes": [ ],
+  "output_datatypes": [
+    {
+      "name": "cloudant",
+      "dataobject": {
+        "name":"${template_input_params.cluster_name}",
+        "attributes":[
+            {
+                "name": "apikey",
+                "value": "${template_output_params.apikey}"
+            },
+            {
+                "name": "host",
+                "value": "${template_output_params.host}"
+            },
+            {
+                "name": "iam_apikey_description",
+                "value": "${template_output_params.iam_apikey_description}"
+            },
+            {
+                "name": "iam_apikey_name",
+                "value": "${template_output_params.iam_apikey_name}"
+            },
+            {
+                "name": "iam_serviceid_crn",
+                "value": "${template_output_params.iam_serviceid_crn}"
+            },
+            {
+                "name": "host",
+                "value": "${template_output_params.host}"
+            },
+            {
+                "name": "password",
+                "value": "${template_output_params.password}"
+            },
+            {
+                "name": "port",
+                "value": "${template_output_params.port}"
+            },
+            {
+                "name": "url",
+                "value": "${template_output_params.url}"
+            },
+            {
+                "name": "username",
+                "value": "${template_output_params.username}"
+            }          
+        ]
+    }
+  }
+  ],
   "input_namespaces": [ ],
   "output_namespace": "",
   "input_groups": [  {
