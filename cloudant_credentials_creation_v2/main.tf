@@ -23,7 +23,7 @@ resource "null_resource" "ibmcli_vm" {
 
 provisioner "remote-exec" {
   inline = [
-      "mkdir -p  /tmp/%s" , "${random_string.random-dir.result}",
+      "${format("mkdir -p  /tmp/%s" , "${random_string.random-dir.result}")}",
     ]
 }
 
