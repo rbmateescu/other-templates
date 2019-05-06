@@ -81,7 +81,7 @@ data "external" "com_output" {
   depends_on = ["camc_scriptpackage.CreateScript"]
   program = ["/bin/bash", "${path.module}/scripts/get_output.sh"]
   query = {
-    output_location  = "${var.cam_hostname}"
+    output_location  = "/tmp/${random_string.random-dir.result}/com_output"
   }
 }
 
