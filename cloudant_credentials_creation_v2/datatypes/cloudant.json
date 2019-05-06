@@ -6,7 +6,7 @@
         {
             "name": "apikey",
             "type": "string",
-            "description": "Sapikey",
+            "description": "apikey",
             "label": "apikey",
             "required": false,
             "secured": true,
