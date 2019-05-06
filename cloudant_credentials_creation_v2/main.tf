@@ -20,6 +20,7 @@ resource "null_resource" "cloudant" {
       user = "${var.ssh_user}"
       password = "${var.ssh_user_password}"
     }
+    
     provisioner "remote-exec" {
       inline = [
           "${format("mkdir -p  /tmp/%s" , "${random_string.random-dir.result}")}",
@@ -39,8 +40,8 @@ resource "null_resource" "cloudant" {
     echo $com_response | awk 'match($0,"{"){print substr($0,RSTART)}' >> /tmp/${random_string.random-dir.result}/com_output
     EOF
         destination = "/tmp/${random_string.random-dir.result}/create_credentials.sh"
-      }
-      
+    }
+    
     provisioner "file" {
         content = <<EOF
     #!/bin/bash
@@ -52,21 +53,21 @@ resource "null_resource" "cloudant" {
     ibmcloud service key-delete ${var.service_name} ${var.service_credentials_name} -f >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
     EOF
         destination = "/tmp/${random_string.random-dir.result}/delete_credentials.sh"
-      }
     }
  
-   provisioner "remote-exec" {
+    provisioner "remote-exec" {
     inline = [
         "/tmp/${random_string.random-dir.result}/create_credentials.sh",
       ]
-  }
+    }
 
-  provisioner "remote-exec" {
+    provisioner "remote-exec" {
     when    = "destroy"
     inline = [
         "/tmp/${random_string.random-dir.result}/delete_credentials.sh && rm -fr /tmp/${random_string.random-dir.result}",
       ]
   }
+}
 
 data "external" "com_output" {
   depends_on = ["null_resource.cloudant"]
