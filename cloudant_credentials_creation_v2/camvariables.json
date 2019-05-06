@@ -4,7 +4,7 @@
     {
       "name": "cloudant",
       "dataobject": {
-        "name":"${template_input_params.cluster_name}",
+        "name":"${template_output_params.iam_apikey_name}",
         "attributes":[
             {
                 "name": "apikey",
