@@ -21,6 +21,11 @@ output "iam_apikey_name" {
   value = "${camc_scriptpackage.iam_apikey_name.result["stdout"]}"
 }
 
+output "iam_serviceid_crn" {
+  value = "${camc_scriptpackage.iam_serviceid_crn.result["stdout"]}"
+}
+
+
 output "password" {
   value = "${camc_scriptpackage.password.result["stdout"]}"
 }
