@@ -13,75 +13,65 @@ resource "random_string" "random-dir" {
   special = false
 }
 
-resource "null_resource" "ibmcli_vm" {
-  connection {
-    host = "${var.vm_address}"
-    type = "ssh"
-    user = "${var.ssh_user}"
-    password = "${var.ssh_user_password}"
+resource "null_resource" "cloudant" {
+    connection {
+      host = "${var.vm_address}"
+      type = "ssh"
+      user = "${var.ssh_user}"
+      password = "${var.ssh_user_password}"
+    }
+    provisioner "remote-exec" {
+      inline = [
+          "${format("mkdir -p  /tmp/%s" , "${random_string.random-dir.result}")}",
+        ]
     }
 
-provisioner "remote-exec" {
-  inline = [
-      "${format("mkdir -p  /tmp/%s" , "${random_string.random-dir.result}")}",
-    ]
-}
-
-provisioner "file" {
-    content = <<EOF
-#!/bin/bash
-#
-export BLUEMIX_API_KEY=${var.bluemix_key}
-ibmcloud config --check-version=false > /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-ibmcloud login -a https://cloud.ibm.com -r us-south >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-ibmcloud target --cf-api https://api.us-south.cf.cloud.ibm.com -o agostino.colussi -s Test >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-ibmcloud service key-create ${var.service_name} ${var.service_credentials_name} >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-com_response=$(ibmcloud service key-show ${var.service_name} ${var.service_credentials_name})
-echo $com_response | awk 'match($0,"{"){print substr($0,RSTART)}' >> /tmp/${random_string.random-dir.result}/com_output
-EOF
-    destination = "/tmp/${random_string.random-dir.result}/create_credentials.sh"
-  }
-  
-provisioner "file" {
-    content = <<EOF
-#!/bin/bash
-#
-export BLUEMIX_API_KEY=${var.bluemix_key}
-ibmcloud config --check-version=false >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-ibmcloud login -a https://cloud.ibm.com -r us-south >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-ibmcloud target --cf-api https://api.us-south.cf.cloud.ibm.com -o agostino.colussi -s Test >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-ibmcloud service key-delete ${var.service_name} ${var.service_credentials_name} -f >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
-EOF
-    destination = "/tmp/${random_string.random-dir.result}/delete_credentials.sh"
-  }
+    provisioner "file" {
+        content = <<EOF
+    #!/bin/bash
+    #
+    export BLUEMIX_API_KEY=${var.bluemix_key}
+    ibmcloud config --check-version=false > /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    ibmcloud login -a https://cloud.ibm.com -r us-south >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    ibmcloud target --cf-api https://api.us-south.cf.cloud.ibm.com -o agostino.colussi -s Test >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    ibmcloud service key-create ${var.service_name} ${var.service_credentials_name} >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    com_response=$(ibmcloud service key-show ${var.service_name} ${var.service_credentials_name})
+    echo $com_response | awk 'match($0,"{"){print substr($0,RSTART)}' >> /tmp/${random_string.random-dir.result}/com_output
+    EOF
+        destination = "/tmp/${random_string.random-dir.result}/create_credentials.sh"
+      }
+      
+    provisioner "file" {
+        content = <<EOF
+    #!/bin/bash
+    #
+    export BLUEMIX_API_KEY=${var.bluemix_key}
+    ibmcloud config --check-version=false >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    ibmcloud login -a https://cloud.ibm.com -r us-south >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    ibmcloud target --cf-api https://api.us-south.cf.cloud.ibm.com -o agostino.colussi -s Test >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    ibmcloud service key-delete ${var.service_name} ${var.service_credentials_name} -f >> /tmp/${random_string.random-dir.result}/create_cloudant_credentials.log 2>&1
+    EOF
+        destination = "/tmp/${random_string.random-dir.result}/delete_credentials.sh"
+      }
+    }
  
- }
- 
-resource "camc_scriptpackage" "CreateScript" {
-  program = ["/bin/bash", "/tmp/${random_string.random-dir.result}/create_credentials.sh"]
-  depends_on = ["null_resource.ibmcli_vm"]
-  remote_host = "${var.vm_address}"
-  remote_user = "${var.ssh_user}"
-  remote_password = "${var.ssh_user_password}"
-  on_create = true
-}
+   provisioner "remote-exec" {
+    inline = [
+        "/tmp/${random_string.random-dir.result}/create_credentials.sh",
+      ]
+  }
 
-resource "camc_scriptpackage" "DestroyScript" {
-  program = ["/bin/bash", "/tmp/${random_string.random-dir.result}/delete_credentials.sh && rm -fr /tmp/${random_string.random-dir.result}"]
-  depends_on = ["null_resource.ibmcli_vm"]
-  remote_host = "${var.vm_address}"
-  remote_user = "${var.ssh_user}"
-  remote_password = "${var.ssh_user_password}"
-  on_delete = true
-} 
-
+  provisioner "remote-exec" {
+    when    = "destroy"
+    inline = [
+        "/tmp/${random_string.random-dir.result}/delete_credentials.sh && rm -fr /tmp/${random_string.random-dir.result}",
+      ]
+  }
 
 data "external" "com_output" {
-  depends_on = ["camc_scriptpackage.CreateScript"]
+  depends_on = ["null_resource.cloudant"]
   program = ["/bin/bash", "${path.module}/scripts/get_output.sh"]
   query = {
     output_location  = "/tmp/${random_string.random-dir.result}/com_output"
   }
 }
-
-
