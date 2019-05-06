@@ -5,10 +5,10 @@
 #####################################################################
 
 output "remote_script_stdout" {
-  value = "${camc_scriptpackage.CreateScript.result}"
+  value = "${data.external.com_output.result}"
 }
 
 output "apikey" {
-  value = "${lookup(camc_scriptpackage.CreateScript.result, "apikey")}"
+  value = "${data.external.com_output.result["apikey"]}"
 }
 
