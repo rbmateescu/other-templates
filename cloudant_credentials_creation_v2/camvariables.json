@@ -27,10 +27,6 @@
                 "value": "${template_output_params.iam_serviceid_crn}"
             },
             {
-                "name": "host",
-                "value": "${template_output_params.host}"
-            },
-            {
                 "name": "password",
                 "value": "${template_output_params.password}"
             },
