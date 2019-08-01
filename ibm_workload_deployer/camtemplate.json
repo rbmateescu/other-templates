@@ -1,0 +1,14 @@
+{
+   "name": "IBM Workload Deployer Templte",
+   "description": "IBM Workload Deployer Templte",
+   "type": "userCreated",
+   "manifest": {
+     "template_type": "Terraform",
+     "template_format": "HCL",
+     "template_provider": "IBM Workload Deployer"
+   },
+   "metadata": {
+     "displayName": "IBM Workload Deployer Templte",
+     "bullets": []
+   }
+ }
