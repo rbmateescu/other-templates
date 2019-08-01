@@ -7,7 +7,7 @@ resource "ibmworkloaddeployer_instance" "sample" {
 	cloud_group = "${var.Deployment_Parameters_-_cloud_group}"
 	ip_group = "${var.Deployment_Parameters_-_ip_group}"
 	ssh_keys = "${var.Deployment_Parameters_-_ssh_keys}"
-	pattern_id = "a-02b29d80-97e5-4a63-927e-bdc2603c72b4"
+	pattern_id = "a-077854f2-8c15-45c7-8c00-5905f0c1e92c"
 	pattern_name = "sample"
 	pattern_attributes = ""
 	stage2_data = ""
